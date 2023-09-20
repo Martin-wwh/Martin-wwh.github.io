@@ -79,6 +79,56 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-日常问题记录贴" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/09/20/%E6%97%A5%E5%B8%B8%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95%E8%B4%B4/" class="article-date">
+  <time class="dt-published" datetime="2023-09-20T06:23:37.000Z" itemprop="datePublished">2023-09-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/09/20/%E6%97%A5%E5%B8%B8%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95%E8%B4%B4/">日常问题记录贴</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="springboot项目在启动时出现问题"><a href="#springboot项目在启动时出现问题" class="headerlink" title="springboot项目在启动时出现问题"></a>springboot项目在启动时出现问题</h3><ol>
+<li><p>InetAddress.getLocalHost().getHostName() took 10011 milliseconds to respond. Please verify your network configuration</p>
+<p>根据报警信息可以看出，只要获取主机信息的耗时超过阈值HOST_NAME_RESOLVE_THRESHOLD&#x3D;200ms就会提示上述信息。很明显，遇到的实例里面，耗时已经达到10s了。</p>
+<p>解决方法：</p>
+<p>先查看主机名</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hostname</span><br></pre></td></tr></table></figure>
+
+<p>将主机名加入&#x2F;etc&#x2F;hosts中</p>
+<p><img src="C:\software_dev\notes\hexo\source_posts\image-20230920144852458.png" alt="image-20230920144852458"></p>
+</li>
+<li></li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/09/20/%E6%97%A5%E5%B8%B8%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95%E8%B4%B4/" data-id="clmrdxt76000008sq7kqg53h5" data-title="日常问题记录贴" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-通过arthas对jvm进行性能调优" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2023/09/12/%E9%80%9A%E8%BF%87arthas%E5%AF%B9jvm%E8%BF%9B%E8%A1%8C%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98/" class="article-date">
@@ -187,6 +237,10 @@
     <h3 class="widget-title">最新文章</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2023/09/20/%E6%97%A5%E5%B8%B8%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95%E8%B4%B4/">日常问题记录贴</a>
+          </li>
         
           <li>
             <a href="/2023/09/12/%E9%80%9A%E8%BF%87arthas%E5%AF%B9jvm%E8%BF%9B%E8%A1%8C%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98/">通过arthas对jvm进行性能调优</a>

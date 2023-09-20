@@ -4,19 +4,21 @@
   <meta charset="utf-8">
   
   
-  <title>通过arthas对jvm进行性能调优 | 天工无极</title>
+  <title>日常问题记录贴 | 天工无极</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="前言：arthas是阿里巴巴开源的一款java虚拟机的线上诊断产品，可以极大提升线上排查问题的效率。">
+  <meta name="description" content="springboot项目在启动时出现问题 InetAddress.getLocalHost().getHostName() took 10011 milliseconds to respond. Please verify your network configuration 根据报警信息可以看出，只要获取主机信息的耗时超过阈值HOST_NAME_RESOLVE_THRESHOLD&#x3D;20">
 <meta property="og:type" content="article">
-<meta property="og:title" content="通过arthas对jvm进行性能调优">
-<meta property="og:url" content="http://example.com/2023/09/12/%E9%80%9A%E8%BF%87arthas%E5%AF%B9jvm%E8%BF%9B%E8%A1%8C%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98/index.html">
+<meta property="og:title" content="日常问题记录贴">
+<meta property="og:url" content="http://example.com/2023/09/20/%E6%97%A5%E5%B8%B8%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95%E8%B4%B4/index.html">
 <meta property="og:site_name" content="天工无极">
-<meta property="og:description" content="前言：arthas是阿里巴巴开源的一款java虚拟机的线上诊断产品，可以极大提升线上排查问题的效率。">
+<meta property="og:description" content="springboot项目在启动时出现问题 InetAddress.getLocalHost().getHostName() took 10011 milliseconds to respond. Please verify your network configuration 根据报警信息可以看出，只要获取主机信息的耗时超过阈值HOST_NAME_RESOLVE_THRESHOLD&#x3D;20">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-09-12T14:03:44.000Z">
-<meta property="article:modified_time" content="2023-09-12T14:09:41.255Z">
+<meta property="og:image" content="c:\software_dev\notes\hexo\source_posts\image-20230920144852458.png">
+<meta property="article:published_time" content="2023-09-20T06:23:37.000Z">
+<meta property="article:modified_time" content="2023-09-20T06:50:37.574Z">
 <meta property="article:author" content="wuweihong">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="c:\software_dev\notes\hexo\source_posts\image-20230920144852458.png">
   
     <link rel="alternate" href="/atom.xml" title="天工无极" type="application/atom+xml">
   
@@ -79,10 +81,10 @@
 </header>
 
       <div class="outer">
-        <section id="main"><article id="post-通过arthas对jvm进行性能调优" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="post-日常问题记录贴" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2023/09/12/%E9%80%9A%E8%BF%87arthas%E5%AF%B9jvm%E8%BF%9B%E8%A1%8C%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98/" class="article-date">
-  <time class="dt-published" datetime="2023-09-12T14:03:44.000Z" itemprop="datePublished">2023-09-12</time>
+    <a href="/2023/09/20/%E6%97%A5%E5%B8%B8%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95%E8%B4%B4/" class="article-date">
+  <time class="dt-published" datetime="2023-09-20T06:23:37.000Z" itemprop="datePublished">2023-09-20</time>
 </a>
     
   </div>
@@ -93,7 +95,7 @@
         
   
     <h1 class="p-name article-title" itemprop="headline name">
-      通过arthas对jvm进行性能调优
+      日常问题记录贴
     </h1>
   
 
@@ -101,12 +103,23 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p><em>前言：arthas是阿里巴巴开源的一款java虚拟机的线上诊断产品，可以极大提升线上排查问题的效率</em>。</p>
+        <h3 id="springboot项目在启动时出现问题"><a href="#springboot项目在启动时出现问题" class="headerlink" title="springboot项目在启动时出现问题"></a>springboot项目在启动时出现问题</h3><ol>
+<li><p>InetAddress.getLocalHost().getHostName() took 10011 milliseconds to respond. Please verify your network configuration</p>
+<p>根据报警信息可以看出，只要获取主机信息的耗时超过阈值HOST_NAME_RESOLVE_THRESHOLD&#x3D;200ms就会提示上述信息。很明显，遇到的实例里面，耗时已经达到10s了。</p>
+<p>解决方法：</p>
+<p>先查看主机名</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hostname</span><br></pre></td></tr></table></figure>
+
+<p>将主机名加入&#x2F;etc&#x2F;hosts中</p>
+<p><img src="C:\software_dev\notes\hexo\source_posts\image-20230920144852458.png" alt="image-20230920144852458"></p>
+</li>
+<li></li>
+</ol>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/09/12/%E9%80%9A%E8%BF%87arthas%E5%AF%B9jvm%E8%BF%9B%E8%A1%8C%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98/" data-id="clmghce9600016gsq4vza9bd3" data-title="通过arthas对jvm进行性能调优" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="http://example.com/2023/09/20/%E6%97%A5%E5%B8%B8%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95%E8%B4%B4/" data-id="clmrdxt76000008sq7kqg53h5" data-title="日常问题记录贴" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -116,19 +129,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2023/09/20/%E6%97%A5%E5%B8%B8%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95%E8%B4%B4/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">前一篇</strong>
-      <div class="article-nav-title">
-        
-          日常问题记录贴
-        
-      </div>
-    </a>
   
-  
-    <a href="/2023/09/07/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2023/09/12/%E9%80%9A%E8%BF%87arthas%E5%AF%B9jvm%E8%BF%9B%E8%A1%8C%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">后一篇</strong>
-      <div class="article-nav-title">欢迎阅读</div>
+      <div class="article-nav-title">通过arthas对jvm进行性能调优</div>
     </a>
   
 </nav>
