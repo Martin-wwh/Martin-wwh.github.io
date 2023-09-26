@@ -1,109 +1,137 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  
-  
-  <title>日常问题记录贴 | 天工无极</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="springboot项目在启动时出现问题 InetAddress.getLocalHost().getHostName() took 10011 milliseconds to respond. Please verify your network configuration 根据报警信息可以看出，只要获取主机信息的耗时超过阈值HOST_NAME_RESOLVE_THRESHOLD&#x3D;20">
-<meta property="og:type" content="article">
-<meta property="og:title" content="日常问题记录贴">
-<meta property="og:url" content="http://example.com/2023/09/20/%E6%97%A5%E5%B8%B8%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95%E8%B4%B4/index.html">
-<meta property="og:site_name" content="天工无极">
-<meta property="og:description" content="springboot项目在启动时出现问题 InetAddress.getLocalHost().getHostName() took 10011 milliseconds to respond. Please verify your network configuration 根据报警信息可以看出，只要获取主机信息的耗时超过阈值HOST_NAME_RESOLVE_THRESHOLD&#x3D;20">
-<meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/images/image-20230920144852458.png">
-<meta property="article:published_time" content="2023-09-20T06:23:37.000Z">
-<meta property="article:modified_time" content="2023-09-26T15:24:26.515Z">
-<meta property="article:author" content="wuweihong">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/images/image-20230920144852458.png">
+  <!-- Html Head Tag-->
+  <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="wuweihong">
+  <!-- Open Graph Data -->
+  <meta property="og:title" content="日常问题记录贴"/>
+  <meta property="og:description" content="除了技术以外，还喜欢聊聊诗和远方" />
+  <meta property="og:site_name" content="天工无极"/>
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="http://example.com"/>
   
     <link rel="alternate" href="/atom.xml" title="天工无极" type="application/atom+xml">
   
   
-    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="icon" href="/favicon.png">
   
-  
-    
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
 
-  
-  
-<link rel="stylesheet" href="/css/style.css">
+  <!-- Site Title -->
+  <title>天工无极</title>
 
+  <!-- Bootstrap CSS -->
   
-    
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+<link rel="stylesheet" href="/css/bootstrap.min.css">
 
+  <!-- Custom CSS -->
   
   
+<link rel="stylesheet" href="/css/style.light.css">
+
+
+  <!-- Google Analytics -->
+  
+
 <meta name="generator" content="Hexo 6.3.0"></head>
 
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">天工无极</a>
-      </h1>
-      
-        <h2 id="subtitle-wrap">
-          <a href="/" id="subtitle">天工无极</a>
-        </h2>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-        
-          <a class="nav-icon" href="/atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
-        
-        <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+  <body>
+    <!-- Page Header -->
+
+
+<header class="site-header header-background" style="background-image: url(/img/default-banner-dark.jpg)">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="page-title with-background-image">
+          <p class="title">日常问题记录贴</p>
+          <p class="subtitle"></p>
+        </div>
+        <div class="site-menu with-background-image">
+          <ul>
+            
+              <li>
+                <a href="/">
+                  
+                  Home
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  
+                  Archives
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="https://github.com/<your-github-username>">
+                  
+                  Github
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="mailto:<your-email-address>">
+                  
+                  Email
+                  
+                </a>
+              </li>
+            
+          </ul>
+        </div>
       </div>
     </div>
   </div>
 </header>
 
-      <div class="outer">
-        <section id="main"><article id="post-日常问题记录贴" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2023/09/20/%E6%97%A5%E5%B8%B8%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95%E8%B4%B4/" class="article-date">
-  <time class="dt-published" datetime="2023-09-20T06:23:37.000Z" itemprop="datePublished">2023-09-20</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="p-name article-title" itemprop="headline name">
-      日常问题记录贴
-    </h1>
-  
+<article>
+  <div class="container typo">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="post-info text-muted">
+          
+            <!-- Author -->
+            <span class="author info">By wuweihong</span>
+          
+          <!-- Date -->
+          <span class="date-time info">On
+            <span class="date">2023-09-20</span>
+            <span class="time">23:59:51</span>
+          </span>
+          
+          <!--  Categories  -->
+            <span class="categories info">Under 
 
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h3 id="springboot项目在启动时出现问题"><a href="#springboot项目在启动时出现问题" class="headerlink" title="springboot项目在启动时出现问题"></a>springboot项目在启动时出现问题</h3><ol>
+<a href="/categories/java/">java</a>
+</span>
+          
+        </div>
+        <!-- Tags -->
+        
+          <div class="post-tags text-muted">
+            Tags: 
+
+<a class="tag" href="/tags/springboot/">#springboot</a>
+
+
+          </div>
+        
+        <!-- Post Main Content -->
+        <div class="post-content">
+          <p>前言：本文旨在及时记录项目实践中遇到的问题</p>
+<span id="more"></span>
+
+
+
+<h3 id="springboot项目在启动时出现问题"><a href="#springboot项目在启动时出现问题" class="headerlink" title="springboot项目在启动时出现问题"></a>springboot项目在启动时出现问题</h3><ol>
 <li><p>InetAddress.getLocalHost().getHostName() took 10011 milliseconds to respond. Please verify your network configuration</p>
 <p>根据报警信息可以看出，只要获取主机信息的耗时超过阈值HOST_NAME_RESOLVE_THRESHOLD&#x3D;200ms就会提示上述信息。很明显，遇到的实例里面，耗时已经达到10s了。</p>
 <p>解决方法：</p>
@@ -143,117 +171,44 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyInterceptor</span> <span class="keyword">implements</span> <span class="title class_">HandlerInterceptor</span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">preHandle</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object handler)</span> <span class="keyword">throws</span> Exception&#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">userName</span> <span class="operator">=</span> request.getHeader(<span class="string">&quot;user-name&quot;</span>);</span><br><span class="line">        <span class="keyword">if</span>(StringUtils.isNotBlank(userName)) &#123;</span><br><span class="line">        	userName = URLDecoder.decode(userName, <span class="string">&quot;utf-8&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        CurrentThreadInfoUtil.setUserInfo(userName);</span><br><span class="line">        <span class="keyword">return</span> HandlerInterceptor.<span class="built_in">super</span>.preHandle(request, response, handler);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">afterCompletion</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object handler, <span class="meta">@Nullable</span> Exception ex)</span>   <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        CurrentThreadInfoUtil.remove();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> ** ThreadLocal工具类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CurrentThreadInfoUtil</span> &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> InheritableThreadLocal&lt;String&gt; userNameThreadLocal = <span class="keyword">new</span> <span class="title class_">InheritableThreadLocal</span>&lt;String&gt;();</span><br><span class="line">    </span><br><span class="line">    **</span><br><span class="line">	 * 设置用户信息</span><br><span class="line">	 * <span class="meta">@param</span> userName 用户名</span><br><span class="line">	 */</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">setUserInfo</span><span class="params">(String userName)</span> &#123;</span><br><span class="line">		<span class="keyword">if</span>(StringUtils.isNoneBlank(userName))&#123;</span><br><span class="line">			userNameThreadLocal.set(userName);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">getUserName</span><span class="params">()</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> userNameThreadLocal.get();</span><br><span class="line">	&#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">remove</span><span class="params">()</span> &#123;</span><br><span class="line">		userNameThreadLocal.remove();</span><br><span class="line">	&#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
 </ol>
 
-      
+        </div>
+      </div>
     </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2023/09/20/%E6%97%A5%E5%B8%B8%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95%E8%B4%B4/" data-id="cln0gxg2v00021csqau4tfrd9" data-title="日常问题记录贴" class="article-share-link"><span class="fa fa-share">分享</span></a>
-      
-      
-      
-    </footer>
   </div>
-  
-    
-<nav id="article-nav">
-  
-  
-    <a href="/2023/09/12/%E9%80%9A%E8%BF%87arthas%E5%AF%B9jvm%E8%BF%9B%E8%A1%8C%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">后一篇</strong>
-      <div class="article-nav-title">通过arthas对jvm进行性能调优</div>
-    </a>
-  
-</nav>
-
-  
 </article>
 
 
-</section>
-        
-          <aside id="sidebar">
-  
-    
 
-  
-    
-
-  
-    
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">归档</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">九月 2023</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">最新文章</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2023/09/20/%E6%97%A5%E5%B8%B8%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95%E8%B4%B4/">日常问题记录贴</a>
-          </li>
-        
-          <li>
-            <a href="/2023/09/12/%E9%80%9A%E8%BF%87arthas%E5%AF%B9jvm%E8%BF%9B%E8%A1%8C%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98/">通过arthas对jvm进行性能调优</a>
-          </li>
-        
-          <li>
-            <a href="/2023/09/07/hello-world/">欢迎阅读</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
+    <!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <p class="copyright text-muted">
+          Theme By <a target="_blank" href="https://github.com/levblanc">Levblanc.</a>
+          Inspired By <a target="_blank" href="https://github.com/klugjo/hexo-theme-clean-blog">Clean Blog.</a>
+        <p class="copyright text-muted">
+          Powered By <a target="_blank" href="https://hexo.io/">Hexo.</a>
+        </p>
       </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      
-      &copy; 2023 wuweihong<br>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>
 
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
 
+    <!-- After Footer Scripts -->
 
-<script src="/js/jquery-3.6.4.min.js"></script>
+<script src="/js/highlight.pack.js"></script>
 
+<script>
+  document.addEventListener("DOMContentLoaded", function(event) {
+    var codeBlocks = Array.prototype.slice.call(document.getElementsByTagName('pre'))
+    codeBlocks.forEach(function(block, index) {
+      hljs.highlightBlock(block);
+    });
+  });
+</script>
 
-
-  
-<script src="/fancybox/jquery.fancybox.min.js"></script>
-
-
-
-
-<script src="/js/script.js"></script>
-
-
-
-
-
-  </div>
-</body>
+  </body>
 </html>
+
