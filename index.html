@@ -111,7 +111,6 @@
 <p>将主机名加入&#x2F;etc&#x2F;hosts中</p>
 <p><img src="/./images/image-20230920144852458.png" alt="avatar"></p>
 </li>
-<li></li>
 </ol>
 <h3 id="SPRINGBOOT中不同的请求获取到了相同的threadlocal内的变量值"><a href="#SPRINGBOOT中不同的请求获取到了相同的threadlocal内的变量值" class="headerlink" title="SPRINGBOOT中不同的请求获取到了相同的threadlocal内的变量值"></a>SPRINGBOOT中不同的请求获取到了相同的threadlocal内的变量值</h3><ol>
 <li><p>问题原因及表现</p>
@@ -121,7 +120,7 @@
 </code></pre>
 </li>
 </ol>
-<p>threadlocal操作的 工具类</p>
+<p>ThreadLocal操作的工具类</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CurrentThreadInfoUtil</span> &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> InheritableThreadLocal&lt;String&gt; userNameThreadLocal = <span class="keyword">new</span> <span class="title class_">InheritableThreadLocal</span>&lt;String&gt;();</span><br><span class="line">    </span><br><span class="line">    **</span><br><span class="line">	 * 设置用户信息</span><br><span class="line">	 * <span class="meta">@param</span> userName 用户名</span><br><span class="line">	 */</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">setUserInfo</span><span class="params">(String userName)</span> &#123;</span><br><span class="line">		<span class="keyword">if</span>(StringUtils.isNoneBlank(userName))&#123;</span><br><span class="line">			userNameThreadLocal.set(userName);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">getUserName</span><span class="params">()</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> userNameThreadLocal.get();</span><br><span class="line">	&#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
