@@ -8,7 +8,7 @@
   <meta name="description" content="">
   <meta name="author" content="wuweihong">
   <!-- Open Graph Data -->
-  <meta property="og:title" content="志翔科技一面"/>
+  <meta property="og:title" content="网易一面"/>
   <meta property="og:description" content="除了技术以外，还喜欢聊聊诗和远方" />
   <meta property="og:site_name" content="天工无极"/>
   <meta property="og:type" content="article" />
@@ -47,7 +47,7 @@
     <div class="row">
       <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
         <div class="page-title with-background-image">
-          <p class="title">志翔科技一面</p>
+          <p class="title">网易一面</p>
           <p class="subtitle"></p>
         </div>
         <div class="site-menu with-background-image">
@@ -126,10 +126,30 @@
         
         <!-- Post Main Content -->
         <div class="post-content">
-          <h3 id="自我介绍"><a href="#自我介绍" class="headerlink" title="自我介绍"></a>自我介绍</h3><h3 id="项目经历-难点问题的解决方案。"><a href="#项目经历-难点问题的解决方案。" class="headerlink" title="项目经历+难点问题的解决方案。"></a>项目经历+难点问题的解决方案。</h3><h3 id="数据结构与算法："><a href="#数据结构与算法：" class="headerlink" title="数据结构与算法："></a>数据结构与算法：</h3><p>（1）描述栈  队列   堆的概念<br>         栈：线性结构，先入后出(FILO)<br>         队列：线性结构，先入先出(FIFO)<br>         堆：线性结构，完全二叉树<br>         (小根)堆的性质：根节点的值小于等于左右子节点的值<br>         队列的种类：单向队列  双向队列  循环队列  阻塞双向队列  非阻塞队列  优先队列  并发队列<br>         是否了解python中的deque？线性结构，可在两端进行插入删除操作。<br>         如何实现优先级队列？通过小根堆可实现优先级队列。<br>         是否了解堆排序，堆排序如何实现 ？堆排序的时间复杂度 ？<br>         将数组先初始化为大根堆，将堆顶元素与堆最后一个元素交换，同时堆的size-1，维持堆的性质，直到堆为空。时间复杂度为O(nlgn)</p>
-<p>(2) 树 图<br>     如何通过非递归的方式实现深度优先遍历和广度优先遍历？通过栈实现</p>
-<p>是否了解python中list的底层实现方式。</p>
-<h3 id="网络与操作系统考察："><a href="#网络与操作系统考察：" class="headerlink" title="网络与操作系统考察："></a>网络与操作系统考察：</h3><p>（1）tcp与udp的区别<br>（2）描述tcp三次握手<br>（3）两次握手客户端已经简历tcp连接，为什么需要第三次握手？<br>（4）tcp连接对操作系统的负担（消耗文件句柄）<br>（5）进程之间通信的方式：socket通信  管道  共享内存<br>（6）命名管道与匿名管道的区别，linux管道符使用的是匿名管道or命名管道？<br>（7）共享内存是进程间通信最快的方式，那么共享内存的通信原理是什么？<br>（8）进程控制块中有哪些信息？<br>（9）进程的物理地址与逻辑地址分别指什么？</p>
+          <p>面试最开始是自我介绍环节，之后是问一下简历中的项目。接下来是基础知识：</p>
+<h3 id="数据库："><a href="#数据库：" class="headerlink" title="数据库："></a>数据库：</h3><ol>
+<li><p>用过哪些数据库？</p>
+</li>
+<li><p>是否了解mysql的数据库存储引擎？<br>答案：MySQL中有两种类型的存储引擎：事务性和非事务性。MyISAM、InnoDB、BDB、MEMORY、MERGE、EXAMPLE、NDB Cluster、ARCHIVE等</p>
+</li>
+<li><p>MyISAM与InnoDB有哪些区别？ </p>
+<p>答案：见<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_35642036/article/details/82820178">https://blog.csdn.net/qq_35642036/article/details/82820178</a> </p>
+</li>
+<li><p>在InnoDB存储引擎中，对行锁与表锁的理解？ </p>
+<p>答案：见<a target="_blank" rel="noopener" href="https://blog.csdn.net/luzhensmart/article/details/81675527">https://blog.csdn.net/luzhensmart/article/details/81675527</a></p>
+</li>
+<li><p>in与exists的区别</p>
+<p>答案：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_39539399/article/details/80851817">https://blog.csdn.net/weixin_39539399/article/details/80851817</a></p>
+</li>
+</ol>
+<h3 id="python语言："><a href="#python语言：" class="headerlink" title="python语言："></a>python语言：</h3><p>讲一下python中的锁<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/shen1722585471/article/details/78507335">https://blog.csdn.net/shen1722585471/article/details/78507335</a></p>
+<h3 id="linux操作系统："><a href="#linux操作系统：" class="headerlink" title="linux操作系统："></a>linux操作系统：</h3><ol>
+<li>是否了解linux操作系统？</li>
+<li>如何查看端口占用？netstat -anp |grep 端口号</li>
+<li>过滤某个文件夹下最近一天修改的文件 <a target="_blank" rel="noopener" href="https://blog.csdn.net/sun120204535/article/details/77523191">https://blog.csdn.net/sun120204535/article/details/77523191</a></li>
+<li>ping命令的作用以及ping命令所使用的协议</li>
+</ol>
+<h3 id="算法题"><a href="#算法题" class="headerlink" title="算法题"></a>算法题</h3><p>给定二叉树，输入根节点和任意两个节点，输出这两个节点的最近公共祖先节点<br><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/er-cha-shu-de-zui-jin-gong-gong-zu-xian-lcof/">https://leetcode-cn.com/problems/er-cha-shu-de-zui-jin-gong-gong-zu-xian-lcof/</a></p>
 
         </div>
       </div>
