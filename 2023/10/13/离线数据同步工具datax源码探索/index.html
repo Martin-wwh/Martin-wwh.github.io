@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+  <!-- Html Head Tag-->
+  <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="wuweihong">
+  <!-- Open Graph Data -->
+  <meta property="og:title" content="离线数据同步工具datax源码探索"/>
+  <meta property="og:description" content="除了技术以外，还喜欢聊聊诗和远方" />
+  <meta property="og:site_name" content="天工无极"/>
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="http://example.com"/>
+  
+    <link rel="alternate" href="/atom.xml" title="天工无极" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+
+  <!-- Site Title -->
+  <title>天工无极</title>
+
+  <!-- Bootstrap CSS -->
+  
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+  <!-- Custom CSS -->
+  
+  
+<link rel="stylesheet" href="/css/style.light.css">
+
+
+  <!-- Google Analytics -->
+  
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+  <body>
+    <!-- Page Header -->
+
+
+<header class="site-header header-background" style="background-image: url(/img/sunrise.jpg)">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="page-title with-background-image">
+          <p class="title">离线数据同步工具datax源码探索</p>
+          <p class="subtitle"></p>
+        </div>
+        <div class="site-menu with-background-image">
+          <ul>
+            
+              <li>
+                <a href="/">
+                  
+                  Home
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  
+                  Archives
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a target="_blank" rel="noopener" href="https://github.com/wuweihongdd/">
+                  
+                  Github
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="mailto:1454565178@qq.com">
+                  
+                  Email
+                  
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<article>
+  <div class="container typo">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="post-info text-muted">
+          
+            <!-- Author -->
+            <span class="author info">By wuweihong</span>
+          
+          <!-- Date -->
+          <span class="date-time info">On
+            <span class="date">2023-10-13</span>
+            <span class="time">11:55:22</span>
+          </span>
+          
+          <!--  Categories  -->
+            <span class="categories info">Under 
+
+<a href="/categories/java/">java</a>
+</span>
+          
+        </div>
+        <!-- Tags -->
+        
+          <div class="post-tags text-muted">
+            Tags: 
+
+<a class="tag" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/">#大数据</a>
+
+
+          </div>
+        
+        <!-- Post Main Content -->
+        <div class="post-content">
+          <h3 id="datax通道配置项"><a href="#datax通道配置项" class="headerlink" title="datax通道配置项"></a>datax通道配置项</h3><p>对于datax通道channel的认识</p>
+<p>datax与通道传输速率有关的参数：</p>
+<p>job.setting.speed.channel : channel并发数<br>job.setting.speed.record : 全局配置channel的record限速<br>job.setting.speed.byte：全局配置channel的byte限速</p>
+<p>core.transport.channel.speed.record：单channel的record限速<br>core.transport.channel.speed.byte：单channel的byte限速</p>
+<p>job里是全局配置，core里是单个channel的配置。</p>
+<p>上述配置项的优先级如下：</p>
+<p>存在限制单次的记录数时：所需的channelNumberByRecord &#x3D; core.transport.channel.speed.record &#x2F; job.setting.speed.record</p>
+<p>存在限制的字节数：所需的channelNumberByByte &#x3D; core.transport.channel.speed.byte &#x2F; job.setting.speed.byte</p>
+<p>实际channel 数目取两者的最小值。</p>
+<p>只有当没有配置通道限速的条件下，job.setting.speed.channel才会生效。</p>
+<p>需要注意的点是当channel增大时，datax相应的会增加对内存的消耗（将同时缓存更多的数据），当内存使用率过高时，容易发生full gc</p>
+<p>而导致datax效率降低。为防止这种情况，增大channel数目时，需同时增大datax启动jvm虚拟机时的内存大小。因此，channel并不是越大越好，</p>
+<p>过分大反而影响宿主机性能。</p>
+<p>*** 合适的channel和内存需要在实际场景中调试得出，而非越大越好。 ** </p>
+<p>如何验证datax的并发数？</p>
+<p>假设指定的并发度为5，可以通过日志验证</p>
+<p><img src="/../images/image-20231016092049399.png"></p>
+<p>可以看到最初始是5个子任务start，代表同时启动5个线程实现通道读写，</p>
+<p><img src="/../images/image-20231016092322851.png"></p>
+<p>当有一个子任务结束，另一个子任务立即启动执行。</p>
+<h3 id="datax子任务的切分机制"><a href="#datax子任务的切分机制" class="headerlink" title="datax子任务的切分机制"></a>datax子任务的切分机制</h3><p>DataXJob启动后，会根据不同的源端切分策略，将Job切分成多个小的Task(子任务)，以便于并发执行。Task便是DataX作业的最小单元，每一个Task都会负责一部分数据的同步工作。</p>
+<p>切分子任务的策略，是根据两个参数：splitPk以及channel数。</p>
+<p><strong>注：powerjob中的每个datax任务都是单表操作。</strong></p>
+<p>切分示例说明（示例来自曾小聪的测试任务t_xn_testing_5000w_汇聚_tohive_10）：</p>
+<p>channel数目配置为10；splitPK设置为bm字段。（当channel&gt;1且指定splitPk时，将表切分出子任务）</p>
+<p>默认切分因子为5：即 期望子任务数目 &#x3D; channel * 5</p>
+<p>一个postgresql的表lq_xn.test_xn.t_xn_testing_5000w,单表默认切分因子为5.bm字段最小值为5，最大值为100000000</p>
+<p>subTaskNum &#x3D; (100000000-5) % 50 &gt; 0  ? ( 50 + 1) : 50.</p>
+<p>总共拆分出51个子任务。这51个子任务将投入到10个通道中并发执行，每个通道一次只会执行一个子任务，任务结束后再启动下一个任务的执行。</p>
+<p><em><strong>设置切分因子： 在splitPk参数后面跟上参数  “splitFactor”: number。</strong></em></p>
+<h3 id="结论：当前直接指定设置channel以提升并发度是有效的，但测试中，对于为达到最佳效果，需对具体任务进行测试调整。"><a href="#结论：当前直接指定设置channel以提升并发度是有效的，但测试中，对于为达到最佳效果，需对具体任务进行测试调整。" class="headerlink" title="结论：当前直接指定设置channel以提升并发度是有效的，但测试中，对于为达到最佳效果，需对具体任务进行测试调整。"></a>结论：当前直接指定设置channel以提升并发度是有效的，但测试中，对于为达到最佳效果，需对具体任务进行测试调整。</h3><ul>
+<li>当提升DataX Job内Channel并发数时，调整JVM heap参数，原因如下：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- 当一个Job内Channel数变多后，内存的占用会显著增加，因为DataX作为数据交换通道，在内存中会缓存较多的数据。</span><br><span class="line">- 例如Channel中会有一个Buffer，作为临时的数据交换的缓冲区，而在部分Reader和Writer的中，也会存在一些Buffer，为了防止jvm报内存溢出等错误，调大jvm的堆参数。</span><br><span class="line">- 通常可以将内存设置为4-8G。</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Channel个数并不是越多越好， 原因如下：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">- Channel个数的增加，带来的是更多的CPU消耗以及内存消耗。</span><br><span class="line">- 如果Channel并发配置过高导致JVM内存不够用，会出现的情况是发生频繁的Full GC，导出速度会骤降，适得其反。</span><br></pre></td></tr></table></figure>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+
+
+
+    <!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <p class="copyright text-muted">
+          <!-- Theme By <a target="_blank" href="https://github.com/levblanc">Levblanc.</a>
+          Inspired By <a target="_blank" href="https://github.com/klugjo/hexo-theme-clean-blog">Clean Blog.</a> -->
+        <p class="copyright text-muted">
+          Powered By <a target="_blank" href="https://hexo.io/">Du.xiang.</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    <!-- After Footer Scripts -->
+
+<script src="/js/highlight.pack.js"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function(event) {
+    var codeBlocks = Array.prototype.slice.call(document.getElementsByTagName('pre'))
+    codeBlocks.forEach(function(block, index) {
+      hljs.highlightBlock(block);
+    });
+  });
+</script>
+
+  </body>
+</html>
+
