@@ -9,7 +9,8 @@
         <category>java</category>
       </categories>
       <tags>
-        <tag>jdk learn</tag>
+        <tag>java</tag>
+        <tag>learn</tag>
       </tags>
   </entry>
   <entry>
@@ -152,9 +153,6 @@
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">- Channel个数的增加，带来的是更多的CPU消耗以及内存消耗。</span><br><span class="line">- 如果Channel并发配置过高导致JVM内存不够用，会出现的情况是发生频繁的Full GC，导出速度会骤降，适得其反。</span><br></pre></td></tr></table></figure>
 
 ]]></content>
-      <categories>
-        <category>java</category>
-      </categories>
       <tags>
         <tag>大数据</tag>
       </tags>
