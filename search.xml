@@ -14,7 +14,7 @@
       </tags>
   </entry>
   <entry>
-    <title>trino初探.md</title>
+    <title>trino初探</title>
     <url>/2023/10/17/trino%E5%88%9D%E6%8E%A2/</url>
     <content><![CDATA[<p>Trino是一款被设计用于高效查询海量数据的分布式查询工具。</p>
 <span id="more"></span>
@@ -56,24 +56,6 @@
 <p>(2) 树 图<br>     如何通过非递归的方式实现深度优先遍历和广度优先遍历？通过栈实现</p>
 <p>是否了解python中list的底层实现方式。</p>
 <h3 id="网络与操作系统考察："><a href="#网络与操作系统考察：" class="headerlink" title="网络与操作系统考察："></a>网络与操作系统考察：</h3><p>（1）tcp与udp的区别<br>（2）描述tcp三次握手<br>（3）两次握手客户端已经简历tcp连接，为什么需要第三次握手？<br>（4）tcp连接对操作系统的负担（消耗文件句柄）<br>（5）进程之间通信的方式：socket通信  管道  共享内存<br>（6）命名管道与匿名管道的区别，linux管道符使用的是匿名管道or命名管道？<br>（7）共享内存是进程间通信最快的方式，那么共享内存的通信原理是什么？<br>（8）进程控制块中有哪些信息？<br>（9）进程的物理地址与逻辑地址分别指什么？</p>
-]]></content>
-      <categories>
-        <category>面试</category>
-      </categories>
-      <tags>
-        <tag>learn</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>深信服一面</title>
-    <url>/2023/09/27/%E6%B7%B1%E4%BF%A1%E6%9C%8D%E4%B8%80%E9%9D%A2/</url>
-    <content><![CDATA[<h3 id="自我介绍"><a href="#自我介绍" class="headerlink" title="自我介绍"></a>自我介绍</h3><p>  详细介绍项目经历。重点描述项目中遇到的难点问题，这些问题是如何解决的？</p>
-<h3 id="数据结构基础"><a href="#数据结构基础" class="headerlink" title="数据结构基础"></a>数据结构基础</h3><p>（1）请简述数组与链表的区别链表是一种上一个元素的引用指向下一个元素的存储结构，链表通过指针来连接元素与元素；</p>
-<p>链表是线性表的一种，所谓的线性表包含顺序线性表和链表，顺序线性表是用数组实现的，在内存中有顺序排列，通过改变数组大小实现。而链表不是用顺序实现的，用指针实现，在内存中不连续。意思就是说，链表就是将一系列不连续的内存联系起来，将那种碎片内存进行合理的利用，解决空间的问题。<br>所以，链表允许插入和删除表上任意位置上的节点，但是不允许随即存取。链表有很多种不同的类型：单向链表、双向链表及循环链表。<br>单向链表包含两个域，一个信息域，一个指针域。单向链表的节点有两部分组成，一部分保存节点本身的信息（信息域），另一部分保存下一个节点的地址（指针域），最后一个节点的指针域为空。<br>双向链表，每个节点的指针域包含两个指针 ，分别保存当前指针的前一个节点地址和后一个节点地址。<br>循环链表，末尾节点的指针域的指针指向首节点。<br>数组与链表的区别：<br>链表是链式存储结构，数组是顺序存储结构。<br>链表通过指针来连接元素与元素，数组则是把所有元素按次序依次存储。<br>链表的插入删除元素相对数组较为简单，不需要移动元素，且较为容易实现长度扩充，但是寻找某个元素较为困难；<br>数组寻找某个元素较为简单，但插入与删除比较复杂，由于最大长度需要在编程一开始时指定，故当达到最大长度时，扩充长度不如链表方便。<br>相同：两种结构均可实现数据的顺序存储，构造出来的模型呈线性结构。<br>（2）将两个有序链表合并为一个新的有序链表<br>解答：设两个有序链表为A和B，若A为空链表则返回B，若B为空链表，则返回A。<br>           新链表头节点为headC,初始为空，给定指针变量r始终指向新链表的末尾节点。<br>           第一步，找到A和B中较小的节点，将其值给headC，将已被取出的列表的指针下移到指向下一个节点，如此遍历完两个链表。</p>
-<h3 id="实际算法题"><a href="#实际算法题" class="headerlink" title="实际算法题"></a>实际算法题</h3><p>给定长度为n的数组，找出其中出现次数大于等于n&#x2F;2的元素，并分析所用方法的时间复杂度。（假设改元素 一定存在）leetcode原题<br>如不考虑任何因素，单纯通过python实现，你会如何实现？（面试官解释通过列表的count方法）</p>
-<p>给定一个列表，列表中的元素是二元组，该二元组的含义是ip段，形如（”223.98.208.0”, “223.98.223.255”）,ip段之间不相交。<br>问：给定ip，如何快速定位所属ip段？<br>答：将ip转换为数字，对列表按左端点排序之后，使用二分查找进行定位。<br>既然了解将ip转换为数字，是否了解网络字节序与主机字节序的区别。</p>
-<h3 id="网络知识"><a href="#网络知识" class="headerlink" title="网络知识"></a>网络知识</h3><p>描述tcp三次握手的过程。<br>是否了解io多路复用？select与epoll()区别？</p>
-<h3 id="python语言考察"><a href="#python语言考察" class="headerlink" title="python语言考察"></a>python语言考察</h3><p>如何定义一个类，使得该类支持with语法？<br>如何在python类中定义私有变量？<br>python中单下划线与双下划线的区别？<br>python中线程的缺陷是什么？<br>python支持协程，请简要描述协程以及应用。<br>是否了解pep8，请描述一下。</p>
 ]]></content>
       <categories>
         <category>面试</category>
@@ -137,56 +119,21 @@
       </tags>
   </entry>
   <entry>
-    <title>离线数据同步工具datax源码探索</title>
-    <url>/2023/10/13/%E7%A6%BB%E7%BA%BF%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5%E5%B7%A5%E5%85%B7datax%E6%BA%90%E7%A0%81%E6%8E%A2%E7%B4%A2/</url>
-    <content><![CDATA[<p>DataX是阿里云DataWorks数据集成的开源版本，提供了完整的DTL能力。</p>
-<span id="more"></span>
-
-
-
-<h3 id="datax通道配置项"><a href="#datax通道配置项" class="headerlink" title="datax通道配置项"></a>datax通道配置项</h3><p>对于datax通道channel的认识</p>
-<p>datax与通道传输速率有关的参数：</p>
-<p>job.setting.speed.channel : channel并发数<br>job.setting.speed.record : 全局配置channel的record限速<br>job.setting.speed.byte：全局配置channel的byte限速</p>
-<p>core.transport.channel.speed.record：单channel的record限速<br>core.transport.channel.speed.byte：单channel的byte限速</p>
-<p>job里是全局配置，core里是单个channel的配置。</p>
-<p>上述配置项的优先级如下：</p>
-<p>存在限制单次的记录数时：所需的channelNumberByRecord &#x3D; core.transport.channel.speed.record &#x2F; job.setting.speed.record</p>
-<p>存在限制的字节数：所需的channelNumberByByte &#x3D; core.transport.channel.speed.byte &#x2F; job.setting.speed.byte</p>
-<p>实际channel 数目取两者的最小值。</p>
-<p>只有当没有配置通道限速的条件下，job.setting.speed.channel才会生效。</p>
-<p>需要注意的点是当channel增大时，datax相应的会增加对内存的消耗（将同时缓存更多的数据），当内存使用率过高时，容易发生full gc</p>
-<p>而导致datax效率降低。为防止这种情况，增大channel数目时，需同时增大datax启动jvm虚拟机时的内存大小。因此，channel并不是越大越好，</p>
-<p>过分大反而影响宿主机性能。</p>
-<p>*** 合适的channel和内存需要在实际场景中调试得出，而非越大越好。 ** </p>
-<p>如何验证datax的并发数？</p>
-<p>假设指定的并发度为5，可以通过日志验证</p>
-<p><img src="/../images/image-20231016092049399.png"></p>
-<p>可以看到最初始是5个子任务start，代表同时启动5个线程实现通道读写，</p>
-<p><img src="/../images/image-20231016092322851.png"></p>
-<p>当有一个子任务结束，另一个子任务立即启动执行。</p>
-<h3 id="datax子任务的切分机制"><a href="#datax子任务的切分机制" class="headerlink" title="datax子任务的切分机制"></a>datax子任务的切分机制</h3><p>DataXJob启动后，会根据不同的源端切分策略，将Job切分成多个小的Task(子任务)，以便于并发执行。Task便是DataX作业的最小单元，每一个Task都会负责一部分数据的同步工作。</p>
-<p>切分子任务的策略，是根据两个参数：splitPk以及channel数。</p>
-<p><strong>注：powerjob中的每个datax任务都是单表操作。</strong></p>
-<p>切分示例说明（示例来自曾小聪的测试任务t_xn_testing_5000w_汇聚_tohive_10）：</p>
-<p>channel数目配置为10；splitPK设置为bm字段。（当channel&gt;1且指定splitPk时，将表切分出子任务）</p>
-<p>默认切分因子为5：即 期望子任务数目 &#x3D; channel * 5</p>
-<p>一个postgresql的表lq_xn.test_xn.t_xn_testing_5000w,单表默认切分因子为5.bm字段最小值为5，最大值为100000000</p>
-<p>subTaskNum &#x3D; (100000000-5) % 50 &gt; 0  ? ( 50 + 1) : 50.</p>
-<p>总共拆分出51个子任务。这51个子任务将投入到10个通道中并发执行，每个通道一次只会执行一个子任务，任务结束后再启动下一个任务的执行。</p>
-<p><em><strong>设置切分因子： 在splitPk参数后面跟上参数  “splitFactor”: number。</strong></em></p>
-<h3 id="结论：当前直接指定设置channel以提升并发度是有效的，但测试中，对于为达到最佳效果，需对具体任务进行测试调整。"><a href="#结论：当前直接指定设置channel以提升并发度是有效的，但测试中，对于为达到最佳效果，需对具体任务进行测试调整。" class="headerlink" title="结论：当前直接指定设置channel以提升并发度是有效的，但测试中，对于为达到最佳效果，需对具体任务进行测试调整。"></a>结论：当前直接指定设置channel以提升并发度是有效的，但测试中，对于为达到最佳效果，需对具体任务进行测试调整。</h3><ul>
-<li>当提升DataX Job内Channel并发数时，调整JVM heap参数，原因如下：</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">- 当一个Job内Channel数变多后，内存的占用会显著增加，因为DataX作为数据交换通道，在内存中会缓存较多的数据。</span><br><span class="line">- 例如Channel中会有一个Buffer，作为临时的数据交换的缓冲区，而在部分Reader和Writer的中，也会存在一些Buffer，为了防止jvm报内存溢出等错误，调大jvm的堆参数。</span><br><span class="line">- 通常可以将内存设置为4-8G。</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>Channel个数并不是越多越好， 原因如下：</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">- Channel个数的增加，带来的是更多的CPU消耗以及内存消耗。</span><br><span class="line">- 如果Channel并发配置过高导致JVM内存不够用，会出现的情况是发生频繁的Full GC，导出速度会骤降，适得其反。</span><br></pre></td></tr></table></figure>
-
+    <title>深信服一面</title>
+    <url>/2023/09/27/%E6%B7%B1%E4%BF%A1%E6%9C%8D%E4%B8%80%E9%9D%A2/</url>
+    <content><![CDATA[<h3 id="自我介绍"><a href="#自我介绍" class="headerlink" title="自我介绍"></a>自我介绍</h3><p>  详细介绍项目经历。重点描述项目中遇到的难点问题，这些问题是如何解决的？</p>
+<h3 id="数据结构基础"><a href="#数据结构基础" class="headerlink" title="数据结构基础"></a>数据结构基础</h3><p>（1）请简述数组与链表的区别链表是一种上一个元素的引用指向下一个元素的存储结构，链表通过指针来连接元素与元素；</p>
+<p>链表是线性表的一种，所谓的线性表包含顺序线性表和链表，顺序线性表是用数组实现的，在内存中有顺序排列，通过改变数组大小实现。而链表不是用顺序实现的，用指针实现，在内存中不连续。意思就是说，链表就是将一系列不连续的内存联系起来，将那种碎片内存进行合理的利用，解决空间的问题。<br>所以，链表允许插入和删除表上任意位置上的节点，但是不允许随即存取。链表有很多种不同的类型：单向链表、双向链表及循环链表。<br>单向链表包含两个域，一个信息域，一个指针域。单向链表的节点有两部分组成，一部分保存节点本身的信息（信息域），另一部分保存下一个节点的地址（指针域），最后一个节点的指针域为空。<br>双向链表，每个节点的指针域包含两个指针 ，分别保存当前指针的前一个节点地址和后一个节点地址。<br>循环链表，末尾节点的指针域的指针指向首节点。<br>数组与链表的区别：<br>链表是链式存储结构，数组是顺序存储结构。<br>链表通过指针来连接元素与元素，数组则是把所有元素按次序依次存储。<br>链表的插入删除元素相对数组较为简单，不需要移动元素，且较为容易实现长度扩充，但是寻找某个元素较为困难；<br>数组寻找某个元素较为简单，但插入与删除比较复杂，由于最大长度需要在编程一开始时指定，故当达到最大长度时，扩充长度不如链表方便。<br>相同：两种结构均可实现数据的顺序存储，构造出来的模型呈线性结构。<br>（2）将两个有序链表合并为一个新的有序链表<br>解答：设两个有序链表为A和B，若A为空链表则返回B，若B为空链表，则返回A。<br>           新链表头节点为headC,初始为空，给定指针变量r始终指向新链表的末尾节点。<br>           第一步，找到A和B中较小的节点，将其值给headC，将已被取出的列表的指针下移到指向下一个节点，如此遍历完两个链表。</p>
+<h3 id="实际算法题"><a href="#实际算法题" class="headerlink" title="实际算法题"></a>实际算法题</h3><p>给定长度为n的数组，找出其中出现次数大于等于n&#x2F;2的元素，并分析所用方法的时间复杂度。（假设改元素 一定存在）leetcode原题<br>如不考虑任何因素，单纯通过python实现，你会如何实现？（面试官解释通过列表的count方法）</p>
+<p>给定一个列表，列表中的元素是二元组，该二元组的含义是ip段，形如（”223.98.208.0”, “223.98.223.255”）,ip段之间不相交。<br>问：给定ip，如何快速定位所属ip段？<br>答：将ip转换为数字，对列表按左端点排序之后，使用二分查找进行定位。<br>既然了解将ip转换为数字，是否了解网络字节序与主机字节序的区别。</p>
+<h3 id="网络知识"><a href="#网络知识" class="headerlink" title="网络知识"></a>网络知识</h3><p>描述tcp三次握手的过程。<br>是否了解io多路复用？select与epoll()区别？</p>
+<h3 id="python语言考察"><a href="#python语言考察" class="headerlink" title="python语言考察"></a>python语言考察</h3><p>如何定义一个类，使得该类支持with语法？<br>如何在python类中定义私有变量？<br>python中单下划线与双下划线的区别？<br>python中线程的缺陷是什么？<br>python支持协程，请简要描述协程以及应用。<br>是否了解pep8，请描述一下。</p>
 ]]></content>
+      <categories>
+        <category>面试</category>
+      </categories>
       <tags>
-        <tag>大数据</tag>
+        <tag>learn</tag>
       </tags>
   </entry>
   <entry>
@@ -262,6 +209,59 @@
       </categories>
       <tags>
         <tag>learn</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>离线数据同步工具datax源码探索</title>
+    <url>/2023/10/13/%E7%A6%BB%E7%BA%BF%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5%E5%B7%A5%E5%85%B7datax%E6%BA%90%E7%A0%81%E6%8E%A2%E7%B4%A2/</url>
+    <content><![CDATA[<p>DataX是阿里云DataWorks数据集成的开源版本，提供了完整的DTL能力。</p>
+<span id="more"></span>
+
+
+
+<h3 id="datax通道配置项"><a href="#datax通道配置项" class="headerlink" title="datax通道配置项"></a>datax通道配置项</h3><p>对于datax通道channel的认识</p>
+<p>datax与通道传输速率有关的参数：</p>
+<p>job.setting.speed.channel : channel并发数<br>job.setting.speed.record : 全局配置channel的record限速<br>job.setting.speed.byte：全局配置channel的byte限速</p>
+<p>core.transport.channel.speed.record：单channel的record限速<br>core.transport.channel.speed.byte：单channel的byte限速</p>
+<p>job里是全局配置，core里是单个channel的配置。</p>
+<p>上述配置项的优先级如下：</p>
+<p>存在限制单次的记录数时：所需的channelNumberByRecord &#x3D; core.transport.channel.speed.record &#x2F; job.setting.speed.record</p>
+<p>存在限制的字节数：所需的channelNumberByByte &#x3D; core.transport.channel.speed.byte &#x2F; job.setting.speed.byte</p>
+<p>实际channel 数目取两者的最小值。</p>
+<p>只有当没有配置通道限速的条件下，job.setting.speed.channel才会生效。</p>
+<p>需要注意的点是当channel增大时，datax相应的会增加对内存的消耗（将同时缓存更多的数据），当内存使用率过高时，容易发生full gc</p>
+<p>而导致datax效率降低。为防止这种情况，增大channel数目时，需同时增大datax启动jvm虚拟机时的内存大小。因此，channel并不是越大越好，</p>
+<p>过分大反而影响宿主机性能。</p>
+<p>*** 合适的channel和内存需要在实际场景中调试得出，而非越大越好。 ** </p>
+<p>如何验证datax的并发数？</p>
+<p>假设指定的并发度为5，可以通过日志验证</p>
+<p><img src="/../images/image-20231016092049399.png"></p>
+<p>可以看到最初始是5个子任务start，代表同时启动5个线程实现通道读写，</p>
+<p><img src="/../images/image-20231016092322851.png"></p>
+<p>当有一个子任务结束，另一个子任务立即启动执行。</p>
+<h3 id="datax子任务的切分机制"><a href="#datax子任务的切分机制" class="headerlink" title="datax子任务的切分机制"></a>datax子任务的切分机制</h3><p>DataXJob启动后，会根据不同的源端切分策略，将Job切分成多个小的Task(子任务)，以便于并发执行。Task便是DataX作业的最小单元，每一个Task都会负责一部分数据的同步工作。</p>
+<p>切分子任务的策略，是根据两个参数：splitPk以及channel数。</p>
+<p><strong>注：powerjob中的每个datax任务都是单表操作。</strong></p>
+<p>切分示例说明（示例来自曾小聪的测试任务t_xn_testing_5000w_汇聚_tohive_10）：</p>
+<p>channel数目配置为10；splitPK设置为bm字段。（当channel&gt;1且指定splitPk时，将表切分出子任务）</p>
+<p>默认切分因子为5：即 期望子任务数目 &#x3D; channel * 5</p>
+<p>一个postgresql的表lq_xn.test_xn.t_xn_testing_5000w,单表默认切分因子为5.bm字段最小值为5，最大值为100000000</p>
+<p>subTaskNum &#x3D; (100000000-5) % 50 &gt; 0  ? ( 50 + 1) : 50.</p>
+<p>总共拆分出51个子任务。这51个子任务将投入到10个通道中并发执行，每个通道一次只会执行一个子任务，任务结束后再启动下一个任务的执行。</p>
+<p><em><strong>设置切分因子： 在splitPk参数后面跟上参数  “splitFactor”: number。</strong></em></p>
+<h3 id="结论：当前直接指定设置channel以提升并发度是有效的，但测试中，对于为达到最佳效果，需对具体任务进行测试调整。"><a href="#结论：当前直接指定设置channel以提升并发度是有效的，但测试中，对于为达到最佳效果，需对具体任务进行测试调整。" class="headerlink" title="结论：当前直接指定设置channel以提升并发度是有效的，但测试中，对于为达到最佳效果，需对具体任务进行测试调整。"></a>结论：当前直接指定设置channel以提升并发度是有效的，但测试中，对于为达到最佳效果，需对具体任务进行测试调整。</h3><ul>
+<li>当提升DataX Job内Channel并发数时，调整JVM heap参数，原因如下：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">- 当一个Job内Channel数变多后，内存的占用会显著增加，因为DataX作为数据交换通道，在内存中会缓存较多的数据。</span><br><span class="line">- 例如Channel中会有一个Buffer，作为临时的数据交换的缓冲区，而在部分Reader和Writer的中，也会存在一些Buffer，为了防止jvm报内存溢出等错误，调大jvm的堆参数。</span><br><span class="line">- 通常可以将内存设置为4-8G。</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Channel个数并不是越多越好， 原因如下：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">- Channel个数的增加，带来的是更多的CPU消耗以及内存消耗。</span><br><span class="line">- 如果Channel并发配置过高导致JVM内存不够用，会出现的情况是发生频繁的Full GC，导出速度会骤降，适得其反。</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>大数据</tag>
       </tags>
   </entry>
   <entry>
