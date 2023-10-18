@@ -14,23 +14,34 @@
       </tags>
   </entry>
   <entry>
-    <title>志翔科技一面</title>
-    <url>/2023/09/27/%E5%BF%97%E7%BF%94%E7%A7%91%E6%8A%80%E4%B8%80%E9%9D%A2/</url>
-    <content><![CDATA[<p>面试。。。</p>
+    <title>trino初探.md</title>
+    <url>/2023/10/17/trino%E5%88%9D%E6%8E%A2/</url>
+    <content><![CDATA[<p>Trino是一款被设计用于高效查询海量数据的分布式查询工具。</p>
 <span id="more"></span>
 
-
-
-<h3 id="自我介绍"><a href="#自我介绍" class="headerlink" title="自我介绍"></a>自我介绍</h3><h3 id="项目经历-难点问题的解决方案。"><a href="#项目经历-难点问题的解决方案。" class="headerlink" title="项目经历+难点问题的解决方案。"></a>项目经历+难点问题的解决方案。</h3><h3 id="数据结构与算法："><a href="#数据结构与算法：" class="headerlink" title="数据结构与算法："></a>数据结构与算法：</h3><p>（1）描述栈  队列   堆的概念<br>         栈：线性结构，先入后出(FILO)<br>         队列：线性结构，先入先出(FIFO)<br>         堆：线性结构，完全二叉树<br>         (小根)堆的性质：根节点的值小于等于左右子节点的值<br>         队列的种类：单向队列  双向队列  循环队列  阻塞双向队列  非阻塞队列  优先队列  并发队列<br>         是否了解python中的deque？线性结构，可在两端进行插入删除操作。<br>         如何实现优先级队列？通过小根堆可实现优先级队列。<br>         是否了解堆排序，堆排序如何实现 ？堆排序的时间复杂度 ？<br>         将数组先初始化为大根堆，将堆顶元素与堆最后一个元素交换，同时堆的size-1，维持堆的性质，直到堆为空。时间复杂度为O(nlgn)</p>
-<p>(2) 树 图<br>     如何通过非递归的方式实现深度优先遍历和广度优先遍历？通过栈实现</p>
-<p>是否了解python中list的底层实现方式。</p>
-<h3 id="网络与操作系统考察："><a href="#网络与操作系统考察：" class="headerlink" title="网络与操作系统考察："></a>网络与操作系统考察：</h3><p>（1）tcp与udp的区别<br>（2）描述tcp三次握手<br>（3）两次握手客户端已经简历tcp连接，为什么需要第三次握手？<br>（4）tcp连接对操作系统的负担（消耗文件句柄）<br>（5）进程之间通信的方式：socket通信  管道  共享内存<br>（6）命名管道与匿名管道的区别，linux管道符使用的是匿名管道or命名管道？<br>（7）共享内存是进程间通信最快的方式，那么共享内存的通信原理是什么？<br>（8）进程控制块中有哪些信息？<br>（9）进程的物理地址与逻辑地址分别指什么？</p>
+<h2 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h2><h4 id="Trino不是什么"><a href="#Trino不是什么" class="headerlink" title="Trino不是什么"></a>Trino不是什么</h4><p>鉴于Trino被社区的很多人称作数据库，则定义Trino不是什么是有意义的。</p>
+<p>Trino不是通用的关系型数据库。它不是MySQL，postgresql或者oracle的替代品。Trino并不是为处理在线事务处理(OLTP)而设计。</p>
+<h4 id="Trino是什么"><a href="#Trino是什么" class="headerlink" title="Trino是什么"></a>Trino是什么</h4><p>Trino是一款被设计用于高效查询海量数据的分布式查询工具。如果处理TB或者PB级的数据，您可能会使用与Hadoop和HDFS交互的工具。Trino被设计为使用MapReduce作业管道（例如Hive或Pig）查询HDFS的工具的替代工具，但Trino不仅限于访问HDFS。Trino 可以并且已经扩展到对不同类型的数据源进行操作，包括传统关系数据库和 Cassandra 等其他数据源。</p>
+<p>Trino被设计用于处理数据仓储和分析：数据分析，聚合海量数据并生成报告。这些功能通常被归类为在线分析处理（OLAP）。</p>
+<h4 id="Trino-概念"><a href="#Trino-概念" class="headerlink" title="Trino 概念"></a>Trino 概念</h4><p>要了解Trino，必须先了解Trino中使用的术语和概念。</p>
+<p>作为Trino管理员或Trino贡献者，应该了解Trino的阶段概念如何映射到任务以及任务如何包含一组处理数据的驱动程序。</p>
+<h5 id="Architecture-（结构"><a href="#Architecture-（结构" class="headerlink" title="Architecture （结构)"></a>Architecture （结构)</h5><p>Trino是一个分布式查询引擎，可以跨多个服务器并发处理数据。有两种类型的Trino server，coordinators**(协调器)<strong>和workers</strong>(工作器)**。</p>
+<h5 id="Cluster-集群"><a href="#Cluster-集群" class="headerlink" title="Cluster (集群)"></a>Cluster (集群)</h5><p>Trino集群由一个coordinator和多个worker组成。用户使用sql查询工具连接到coordinator 。coordinator和worker共同访问连接到的数据源。访问权限配置在catalog中。</p>
+<p>处理中的每个查询是一个有状态操作。工作负载由coordinator编排，并行分布在集群的所有worker中。每个结点运行一个Trino的JVM实例，并使用现成进一步并发处理。</p>
+<h5 id="Coordinator"><a href="#Coordinator" class="headerlink" title="Coordinator"></a>Coordinator</h5><p>Trino Coordinator是负责解析语句、规划查询和管理Trino worker节点的服务器。它是 Trino 安装的“大脑”，也是客户端连接以提交执行语句的节点。每个 Trino 安装都必须有一名 Trino Coordinator和一名或多名 Trino worker。出于开发或测试目的，可以将 Trino 的单个实例配置为执行这两个角色。</p>
+<p>Coordinator跟踪每个worker的活动并协调查询的执行。Coordinator创建涉及一系列阶段的查询的逻辑模型，然后将其转换为在 Trino 工作集群上运行的一系列连接任务。</p>
+<p>Coordinator使用 REST API 与worker和客户端进行通信。</p>
+<h5 id="Worker"><a href="#Worker" class="headerlink" title="Worker"></a>Worker</h5><p>Trino worker是一个安装了Trino的服务器，负责执行任务和处理数据。worker节点从连接器获取数据并相互交换中间数据。</p>
+<h4 id="Data-sources"><a href="#Data-sources" class="headerlink" title="Data sources"></a>Data sources</h4><p>通过本文档，您会了解诸如连接器(connector),目录(catalog)，模式(schema)和表(table)等术语。这些基本概念覆盖了特定数据源的trino模型。</p>
+<h5 id="Connector"><a href="#Connector" class="headerlink" title="Connector"></a>Connector</h5><h5 id="Catalog"><a href="#Catalog" class="headerlink" title="Catalog"></a>Catalog</h5><p>Trino 目录包含模式并通过连接器引用数据源。</p>
+<h5 id="Schema"><a href="#Schema" class="headerlink" title="Schema"></a>Schema</h5><h5 id="Table"><a href="#Table" class="headerlink" title="Table"></a>Table</h5><p>表是一组无序的行，它们被组织成具有类型的命名列。</p>
 ]]></content>
       <categories>
-        <category>面试</category>
+        <category>java</category>
       </categories>
       <tags>
-        <tag>learn</tag>
+        <tag>trino</tag>
+        <tag>大数据</tag>
       </tags>
   </entry>
   <entry>
@@ -42,17 +53,18 @@
 
 
 <h3 id="springboot项目在启动时出现问题"><a href="#springboot项目在启动时出现问题" class="headerlink" title="springboot项目在启动时出现问题"></a>springboot项目在启动时出现问题</h3><ol>
-<li><p>InetAddress.getLocalHost().getHostName() took 10011 milliseconds to respond. Please verify your network configuration</p>
+<li><p>问题报错 ：InetAddress.getLocalHost().getHostName() took 10011 milliseconds to respond. Please verify your network configuration。</p>
 <p>根据报警信息可以看出，只要获取主机信息的耗时超过阈值HOST_NAME_RESOLVE_THRESHOLD&#x3D;200ms就会提示上述信息。很明显，遇到的实例里面，耗时已经达到10s了。</p>
-<p>解决方法：</p>
-<p>先查看主机名</p>
+</li>
+<li><p>解决方法：</p>
+<p>使用如下linux命令查看主机名：</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hostname</span><br></pre></td></tr></table></figure>
 
-<p>将主机名加入&#x2F;etc&#x2F;hosts中</p>
-<p><img src="/./images/image-20230920144852458.png" alt="avatar"></p>
+<p>将主机名加入&#x2F;etc&#x2F;hosts文件中，如下所示：</p>
+<p><img src="/../images/image-20230920144852458.png" alt="avatar"></p>
 </li>
 </ol>
-<h3 id="SPRINGBOOT中不同的请求获取到了相同的threadlocal内的变量值"><a href="#SPRINGBOOT中不同的请求获取到了相同的threadlocal内的变量值" class="headerlink" title="SPRINGBOOT中不同的请求获取到了相同的threadlocal内的变量值"></a>SPRINGBOOT中不同的请求获取到了相同的threadlocal内的变量值</h3><ol>
+<h3 id="springboot中不同的请求获取到了相同的threadlocal内的变量值"><a href="#springboot中不同的请求获取到了相同的threadlocal内的变量值" class="headerlink" title="springboot中不同的请求获取到了相同的threadlocal内的变量值"></a>springboot中不同的请求获取到了相同的threadlocal内的变量值</h3><ol>
 <li><p>问题原因及表现</p>
 <p>在项目中，对于用户信息的处理，是前端通过http header中将用户名传到后端接口中，后端项目通过拦截器（实现）将用户信息记录在请求所属线程的ThreadLocal变量中。每次前端请求都会将用户信息写入请求http header中，因此业务代码可以通过ThreadLocal变量获取用户信息。代码如下</p>
 <p>拦截器部分代码：</p>
@@ -149,6 +161,26 @@
 <p>给定一个列表，列表中的元素是二元组，该二元组的含义是ip段，形如（”223.98.208.0”, “223.98.223.255”）,ip段之间不相交。<br>问：给定ip，如何快速定位所属ip段？<br>答：将ip转换为数字，对列表按左端点排序之后，使用二分查找进行定位。<br>既然了解将ip转换为数字，是否了解网络字节序与主机字节序的区别。</p>
 <h3 id="网络知识"><a href="#网络知识" class="headerlink" title="网络知识"></a>网络知识</h3><p>描述tcp三次握手的过程。<br>是否了解io多路复用？select与epoll()区别？</p>
 <h3 id="python语言考察"><a href="#python语言考察" class="headerlink" title="python语言考察"></a>python语言考察</h3><p>如何定义一个类，使得该类支持with语法？<br>如何在python类中定义私有变量？<br>python中单下划线与双下划线的区别？<br>python中线程的缺陷是什么？<br>python支持协程，请简要描述协程以及应用。<br>是否了解pep8，请描述一下。</p>
+]]></content>
+      <categories>
+        <category>面试</category>
+      </categories>
+      <tags>
+        <tag>learn</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>志翔科技一面</title>
+    <url>/2023/09/27/%E5%BF%97%E7%BF%94%E7%A7%91%E6%8A%80%E4%B8%80%E9%9D%A2/</url>
+    <content><![CDATA[<p>面试。。。</p>
+<span id="more"></span>
+
+
+
+<h3 id="自我介绍"><a href="#自我介绍" class="headerlink" title="自我介绍"></a>自我介绍</h3><h3 id="项目经历-难点问题的解决方案。"><a href="#项目经历-难点问题的解决方案。" class="headerlink" title="项目经历+难点问题的解决方案。"></a>项目经历+难点问题的解决方案。</h3><h3 id="数据结构与算法："><a href="#数据结构与算法：" class="headerlink" title="数据结构与算法："></a>数据结构与算法：</h3><p>（1）描述栈  队列   堆的概念<br>         栈：线性结构，先入后出(FILO)<br>         队列：线性结构，先入先出(FIFO)<br>         堆：线性结构，完全二叉树<br>         (小根)堆的性质：根节点的值小于等于左右子节点的值<br>         队列的种类：单向队列  双向队列  循环队列  阻塞双向队列  非阻塞队列  优先队列  并发队列<br>         是否了解python中的deque？线性结构，可在两端进行插入删除操作。<br>         如何实现优先级队列？通过小根堆可实现优先级队列。<br>         是否了解堆排序，堆排序如何实现 ？堆排序的时间复杂度 ？<br>         将数组先初始化为大根堆，将堆顶元素与堆最后一个元素交换，同时堆的size-1，维持堆的性质，直到堆为空。时间复杂度为O(nlgn)</p>
+<p>(2) 树 图<br>     如何通过非递归的方式实现深度优先遍历和广度优先遍历？通过栈实现</p>
+<p>是否了解python中list的底层实现方式。</p>
+<h3 id="网络与操作系统考察："><a href="#网络与操作系统考察：" class="headerlink" title="网络与操作系统考察："></a>网络与操作系统考察：</h3><p>（1）tcp与udp的区别<br>（2）描述tcp三次握手<br>（3）两次握手客户端已经简历tcp连接，为什么需要第三次握手？<br>（4）tcp连接对操作系统的负担（消耗文件句柄）<br>（5）进程之间通信的方式：socket通信  管道  共享内存<br>（6）命名管道与匿名管道的区别，linux管道符使用的是匿名管道or命名管道？<br>（7）共享内存是进程间通信最快的方式，那么共享内存的通信原理是什么？<br>（8）进程控制块中有哪些信息？<br>（9）进程的物理地址与逻辑地址分别指什么？</p>
 ]]></content>
       <categories>
         <category>面试</category>
