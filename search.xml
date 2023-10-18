@@ -1,6 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>trino初探</title>
+    <url>/2023/10/17/Trino%E5%88%9D%E6%8E%A2/</url>
+    <content><![CDATA[<p>Trino是一款被设计用于高效查询海量数据的分布式查询工具。</p>
+<span id="more"></span>
+
+<h2 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h2><h4 id="Trino不是什么"><a href="#Trino不是什么" class="headerlink" title="Trino不是什么"></a>Trino不是什么</h4><p>鉴于Trino被社区的很多人称作数据库，则定义Trino不是什么是有意义的。</p>
+<p>Trino不是通用的关系型数据库。它不是MySQL，postgresql或者oracle的替代品。Trino并不是为处理在线事务处理(OLTP)而设计。</p>
+<h4 id="Trino是什么"><a href="#Trino是什么" class="headerlink" title="Trino是什么"></a>Trino是什么</h4><p>Trino是一款被设计用于高效查询海量数据的分布式查询工具。如果处理TB或者PB级的数据，您可能会使用与Hadoop和HDFS交互的工具。Trino被设计为使用MapReduce作业管道（例如Hive或Pig）查询HDFS的工具的替代工具，但Trino不仅限于访问HDFS。Trino 可以并且已经扩展到对不同类型的数据源进行操作，包括传统关系数据库和 Cassandra 等其他数据源。</p>
+<p>Trino被设计用于处理数据仓储和分析：数据分析，聚合海量数据并生成报告。这些功能通常被归类为在线分析处理（OLAP）。</p>
+<h4 id="Trino-概念"><a href="#Trino-概念" class="headerlink" title="Trino 概念"></a>Trino 概念</h4><p>要了解Trino，必须先了解Trino中使用的术语和概念。</p>
+<p>作为Trino管理员或Trino贡献者，应该了解Trino的阶段概念如何映射到任务以及任务如何包含一组处理数据的驱动程序。</p>
+<h5 id="Architecture-（结构"><a href="#Architecture-（结构" class="headerlink" title="Architecture （结构)"></a>Architecture （结构)</h5><p>Trino是一个分布式查询引擎，可以跨多个服务器并发处理数据。有两种类型的Trino server，coordinators**(协调器)<strong>和workers</strong>(工作器)**。</p>
+<h5 id="Cluster-集群"><a href="#Cluster-集群" class="headerlink" title="Cluster (集群)"></a>Cluster (集群)</h5><p>Trino集群由一个coordinator和多个worker组成。用户使用sql查询工具连接到coordinator 。coordinator和worker共同访问连接到的数据源。访问权限配置在catalog中。</p>
+<p>处理中的每个查询是一个有状态操作。工作负载由coordinator编排，并行分布在集群的所有worker中。每个结点运行一个Trino的JVM实例，并使用现成进一步并发处理。</p>
+<h5 id="Coordinator"><a href="#Coordinator" class="headerlink" title="Coordinator"></a>Coordinator</h5><p>Trino Coordinator是负责解析语句、规划查询和管理Trino worker节点的服务器。它是 Trino 安装的“大脑”，也是客户端连接以提交执行语句的节点。每个 Trino 安装都必须有一名 Trino Coordinator和一名或多名 Trino worker。出于开发或测试目的，可以将 Trino 的单个实例配置为执行这两个角色。</p>
+<p>Coordinator跟踪每个worker的活动并协调查询的执行。Coordinator创建涉及一系列阶段的查询的逻辑模型，然后将其转换为在 Trino 工作集群上运行的一系列连接任务。</p>
+<p>Coordinator使用 REST API 与worker和客户端进行通信。</p>
+<h5 id="Worker"><a href="#Worker" class="headerlink" title="Worker"></a>Worker</h5><p>Trino worker是一个安装了Trino的服务器，负责执行任务和处理数据。worker节点从连接器获取数据并相互交换中间数据。</p>
+<h4 id="Data-sources"><a href="#Data-sources" class="headerlink" title="Data sources"></a>Data sources</h4><p>通过本文档，您会了解诸如连接器(connector),目录(catalog)，模式(schema)和表(table)等术语。这些基本概念覆盖了特定数据源的trino模型。</p>
+<h5 id="Connector"><a href="#Connector" class="headerlink" title="Connector"></a>Connector</h5><h5 id="Catalog"><a href="#Catalog" class="headerlink" title="Catalog"></a>Catalog</h5><p>Trino 目录包含模式并通过连接器引用数据源。</p>
+<h5 id="Schema"><a href="#Schema" class="headerlink" title="Schema"></a>Schema</h5><h5 id="Table"><a href="#Table" class="headerlink" title="Table"></a>Table</h5><p>表是一组无序的行，它们被组织成具有类型的命名列。</p>
+]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>trino</tag>
+        <tag>大数据</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>JDK源码学习</title>
     <url>/2023/09/27/JDK%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/</url>
     <content><![CDATA[<p>不积跬步无以至千里。兴趣和好的方法可以让学习之路充满欢乐。初步计划是每天晚上手工的时候看一个类的源码，不是单纯的背源码哦，我是把每个类源码的实现方式和自己的理解记录在我的每篇博文里，虽然很忙，不过时间就像那个，挤挤总是有的嘛~~晚上回来写写博文，一是加深理解二来也加深记忆方便以后查阅。希望看得到的各位童鞋支持我并且互相学习进步呀！期待接下来的山高路远 ~~</p>
@@ -25,6 +56,24 @@
 <p>(2) 树 图<br>     如何通过非递归的方式实现深度优先遍历和广度优先遍历？通过栈实现</p>
 <p>是否了解python中list的底层实现方式。</p>
 <h3 id="网络与操作系统考察："><a href="#网络与操作系统考察：" class="headerlink" title="网络与操作系统考察："></a>网络与操作系统考察：</h3><p>（1）tcp与udp的区别<br>（2）描述tcp三次握手<br>（3）两次握手客户端已经简历tcp连接，为什么需要第三次握手？<br>（4）tcp连接对操作系统的负担（消耗文件句柄）<br>（5）进程之间通信的方式：socket通信  管道  共享内存<br>（6）命名管道与匿名管道的区别，linux管道符使用的是匿名管道or命名管道？<br>（7）共享内存是进程间通信最快的方式，那么共享内存的通信原理是什么？<br>（8）进程控制块中有哪些信息？<br>（9）进程的物理地址与逻辑地址分别指什么？</p>
+]]></content>
+      <categories>
+        <category>面试</category>
+      </categories>
+      <tags>
+        <tag>learn</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>深信服一面</title>
+    <url>/2023/09/27/%E6%B7%B1%E4%BF%A1%E6%9C%8D%E4%B8%80%E9%9D%A2/</url>
+    <content><![CDATA[<h3 id="自我介绍"><a href="#自我介绍" class="headerlink" title="自我介绍"></a>自我介绍</h3><p>  详细介绍项目经历。重点描述项目中遇到的难点问题，这些问题是如何解决的？</p>
+<h3 id="数据结构基础"><a href="#数据结构基础" class="headerlink" title="数据结构基础"></a>数据结构基础</h3><p>（1）请简述数组与链表的区别链表是一种上一个元素的引用指向下一个元素的存储结构，链表通过指针来连接元素与元素；</p>
+<p>链表是线性表的一种，所谓的线性表包含顺序线性表和链表，顺序线性表是用数组实现的，在内存中有顺序排列，通过改变数组大小实现。而链表不是用顺序实现的，用指针实现，在内存中不连续。意思就是说，链表就是将一系列不连续的内存联系起来，将那种碎片内存进行合理的利用，解决空间的问题。<br>所以，链表允许插入和删除表上任意位置上的节点，但是不允许随即存取。链表有很多种不同的类型：单向链表、双向链表及循环链表。<br>单向链表包含两个域，一个信息域，一个指针域。单向链表的节点有两部分组成，一部分保存节点本身的信息（信息域），另一部分保存下一个节点的地址（指针域），最后一个节点的指针域为空。<br>双向链表，每个节点的指针域包含两个指针 ，分别保存当前指针的前一个节点地址和后一个节点地址。<br>循环链表，末尾节点的指针域的指针指向首节点。<br>数组与链表的区别：<br>链表是链式存储结构，数组是顺序存储结构。<br>链表通过指针来连接元素与元素，数组则是把所有元素按次序依次存储。<br>链表的插入删除元素相对数组较为简单，不需要移动元素，且较为容易实现长度扩充，但是寻找某个元素较为困难；<br>数组寻找某个元素较为简单，但插入与删除比较复杂，由于最大长度需要在编程一开始时指定，故当达到最大长度时，扩充长度不如链表方便。<br>相同：两种结构均可实现数据的顺序存储，构造出来的模型呈线性结构。<br>（2）将两个有序链表合并为一个新的有序链表<br>解答：设两个有序链表为A和B，若A为空链表则返回B，若B为空链表，则返回A。<br>           新链表头节点为headC,初始为空，给定指针变量r始终指向新链表的末尾节点。<br>           第一步，找到A和B中较小的节点，将其值给headC，将已被取出的列表的指针下移到指向下一个节点，如此遍历完两个链表。</p>
+<h3 id="实际算法题"><a href="#实际算法题" class="headerlink" title="实际算法题"></a>实际算法题</h3><p>给定长度为n的数组，找出其中出现次数大于等于n&#x2F;2的元素，并分析所用方法的时间复杂度。（假设改元素 一定存在）leetcode原题<br>如不考虑任何因素，单纯通过python实现，你会如何实现？（面试官解释通过列表的count方法）</p>
+<p>给定一个列表，列表中的元素是二元组，该二元组的含义是ip段，形如（”223.98.208.0”, “223.98.223.255”）,ip段之间不相交。<br>问：给定ip，如何快速定位所属ip段？<br>答：将ip转换为数字，对列表按左端点排序之后，使用二分查找进行定位。<br>既然了解将ip转换为数字，是否了解网络字节序与主机字节序的区别。</p>
+<h3 id="网络知识"><a href="#网络知识" class="headerlink" title="网络知识"></a>网络知识</h3><p>描述tcp三次握手的过程。<br>是否了解io多路复用？select与epoll()区别？</p>
+<h3 id="python语言考察"><a href="#python语言考察" class="headerlink" title="python语言考察"></a>python语言考察</h3><p>如何定义一个类，使得该类支持with语法？<br>如何在python类中定义私有变量？<br>python中单下划线与双下划线的区别？<br>python中线程的缺陷是什么？<br>python支持协程，请简要描述协程以及应用。<br>是否了解pep8，请描述一下。</p>
 ]]></content>
       <categories>
         <category>面试</category>
@@ -85,24 +134,6 @@
       </categories>
       <tags>
         <tag>springboot</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>深信服一面</title>
-    <url>/2023/09/27/%E6%B7%B1%E4%BF%A1%E6%9C%8D%E4%B8%80%E9%9D%A2/</url>
-    <content><![CDATA[<h3 id="自我介绍"><a href="#自我介绍" class="headerlink" title="自我介绍"></a>自我介绍</h3><p>  详细介绍项目经历。重点描述项目中遇到的难点问题，这些问题是如何解决的？</p>
-<h3 id="数据结构基础"><a href="#数据结构基础" class="headerlink" title="数据结构基础"></a>数据结构基础</h3><p>（1）请简述数组与链表的区别链表是一种上一个元素的引用指向下一个元素的存储结构，链表通过指针来连接元素与元素；</p>
-<p>链表是线性表的一种，所谓的线性表包含顺序线性表和链表，顺序线性表是用数组实现的，在内存中有顺序排列，通过改变数组大小实现。而链表不是用顺序实现的，用指针实现，在内存中不连续。意思就是说，链表就是将一系列不连续的内存联系起来，将那种碎片内存进行合理的利用，解决空间的问题。<br>所以，链表允许插入和删除表上任意位置上的节点，但是不允许随即存取。链表有很多种不同的类型：单向链表、双向链表及循环链表。<br>单向链表包含两个域，一个信息域，一个指针域。单向链表的节点有两部分组成，一部分保存节点本身的信息（信息域），另一部分保存下一个节点的地址（指针域），最后一个节点的指针域为空。<br>双向链表，每个节点的指针域包含两个指针 ，分别保存当前指针的前一个节点地址和后一个节点地址。<br>循环链表，末尾节点的指针域的指针指向首节点。<br>数组与链表的区别：<br>链表是链式存储结构，数组是顺序存储结构。<br>链表通过指针来连接元素与元素，数组则是把所有元素按次序依次存储。<br>链表的插入删除元素相对数组较为简单，不需要移动元素，且较为容易实现长度扩充，但是寻找某个元素较为困难；<br>数组寻找某个元素较为简单，但插入与删除比较复杂，由于最大长度需要在编程一开始时指定，故当达到最大长度时，扩充长度不如链表方便。<br>相同：两种结构均可实现数据的顺序存储，构造出来的模型呈线性结构。<br>（2）将两个有序链表合并为一个新的有序链表<br>解答：设两个有序链表为A和B，若A为空链表则返回B，若B为空链表，则返回A。<br>           新链表头节点为headC,初始为空，给定指针变量r始终指向新链表的末尾节点。<br>           第一步，找到A和B中较小的节点，将其值给headC，将已被取出的列表的指针下移到指向下一个节点，如此遍历完两个链表。</p>
-<h3 id="实际算法题"><a href="#实际算法题" class="headerlink" title="实际算法题"></a>实际算法题</h3><p>给定长度为n的数组，找出其中出现次数大于等于n&#x2F;2的元素，并分析所用方法的时间复杂度。（假设改元素 一定存在）leetcode原题<br>如不考虑任何因素，单纯通过python实现，你会如何实现？（面试官解释通过列表的count方法）</p>
-<p>给定一个列表，列表中的元素是二元组，该二元组的含义是ip段，形如（”223.98.208.0”, “223.98.223.255”）,ip段之间不相交。<br>问：给定ip，如何快速定位所属ip段？<br>答：将ip转换为数字，对列表按左端点排序之后，使用二分查找进行定位。<br>既然了解将ip转换为数字，是否了解网络字节序与主机字节序的区别。</p>
-<h3 id="网络知识"><a href="#网络知识" class="headerlink" title="网络知识"></a>网络知识</h3><p>描述tcp三次握手的过程。<br>是否了解io多路复用？select与epoll()区别？</p>
-<h3 id="python语言考察"><a href="#python语言考察" class="headerlink" title="python语言考察"></a>python语言考察</h3><p>如何定义一个类，使得该类支持with语法？<br>如何在python类中定义私有变量？<br>python中单下划线与双下划线的区别？<br>python中线程的缺陷是什么？<br>python支持协程，请简要描述协程以及应用。<br>是否了解pep8，请描述一下。</p>
-]]></content>
-      <categories>
-        <category>面试</category>
-      </categories>
-      <tags>
-        <tag>learn</tag>
       </tags>
   </entry>
   <entry>
