@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>JDK源码学习</title>
+    <url>/2023/09/27/JDK%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/</url>
+    <content><![CDATA[<p>不积跬步无以至千里。兴趣和好的方法可以让学习之路充满欢乐。初步计划是每天晚上手工的时候看一个类的源码，不是单纯的背源码哦，我是把每个类源码的实现方式和自己的理解记录在我的每篇博文里，虽然很忙，不过时间就像那个，挤挤总是有的嘛~~晚上回来写写博文，一是加深理解二来也加深记忆方便以后查阅。希望看得到的各位童鞋支持我并且互相学习进步呀！期待接下来的山高路远 ~~</p>
+<span id="more"></span>]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>learn</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>trino初探</title>
     <url>/2023/10/17/Trino%E5%88%9D%E6%8E%A2/</url>
     <content><![CDATA[<p>Trino是一款被设计用于高效查询海量数据的分布式查询工具。</p>
@@ -29,19 +42,6 @@
       <tags>
         <tag>trino</tag>
         <tag>大数据</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>JDK源码学习</title>
-    <url>/2023/09/27/JDK%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/</url>
-    <content><![CDATA[<p>不积跬步无以至千里。兴趣和好的方法可以让学习之路充满欢乐。初步计划是每天晚上手工的时候看一个类的源码，不是单纯的背源码哦，我是把每个类源码的实现方式和自己的理解记录在我的每篇博文里，虽然很忙，不过时间就像那个，挤挤总是有的嘛~~晚上回来写写博文，一是加深理解二来也加深记忆方便以后查阅。希望看得到的各位童鞋支持我并且互相学习进步呀！期待接下来的山高路远 ~~</p>
-<span id="more"></span>]]></content>
-      <categories>
-        <category>java</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-        <tag>learn</tag>
       </tags>
   </entry>
   <entry>
